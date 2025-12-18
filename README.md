@@ -1,4 +1,4 @@
-# hustcs-report-typst
+# modern-hust-cs-report
 
 本模板为华中科技大学 计算机科学与技术学院 本科课程报告/实验报告 的模板，基于新生实践课老师发放的LaTeX模板修改而来。
 
@@ -13,13 +13,13 @@
 在当前目录初始化项目：
 
 ```bash
-typst init @preview/hustcs-report-typst
+typst init @preview/modern-hust-cs-report
 ```
 
 指定自定义目录名称：
 
 ```bash
-typst init @preview/hustcs-report-typst my-report
+typst init @preview/modern-hust-cs-report my-report
 ```
 
 ### 方法二：手动导入
@@ -27,7 +27,7 @@ typst init @preview/hustcs-report-typst my-report
 在已有 Typst 项目中导入该模板并填写信息：
 
 ```typst
-#import "@preview/hustcs-report-typst:0.1.0": *
+#import "@preview/modern-hust-cs-report:0.1.0": *
 
 
 #show: experimental_report.with(

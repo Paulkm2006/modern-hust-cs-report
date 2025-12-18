@@ -1,43 +1,16 @@
-// Typst template converted from Experimental_Report.cls (HUST course design report style)
-// Usage:
-//   #import "experimental-report.typ": *
-//   #show: experimental_report.with(
-//     title: "…",
-//     course_name: "…",
-//     author: "…",
-//     school: "…",
-//     class_num: "…",
-//     stu_num: "…",
-//     instructor: "…",
-//     report_date: "…",
-//   )
-//   ... document body ...
 #import "@preview/cuti:0.4.0": show-cn-fakebold
 
-
-
-#let _cm(x) = x * 1cm
-
-// Rough zihao-to-pt mapping (good-enough visual match in Typst).
 #let zihao = (
-  // zihao{-0} (初号) is very large; used on cover.
   z0: 42pt,
-  // zihao{2}
   z2: 22pt,
-  // zihao{3}
   z3: 16pt,
-  // zihao{-2}
   zm2: 18pt,
-  // zihao{4}
   z4: 14pt,
-  // zihao{-4}
   zm4: 12pt,
-  // zihao{5}
   z5: 10.5pt,
 )
 
 #let _font-latin = "Times New Roman"
-// Pick a sensible Windows CJK fallback; users can override if needed.
 #let _font-cjk-FangSong = "FangSong"
 #let _font-cjk-sans = "Microsoft YaHei"
 #let _font-cjk-kaishu = "KaiTi"
@@ -46,7 +19,6 @@
 
 
 #let _hust_header() = {
-  // Red centered header title with a single horizontal line below.
   v(15mm)
   stack(
     spacing: 3mm,
@@ -64,29 +36,22 @@
 }
 
 #let _hust_footer(footline_length: 6.7cm) = {
-  // Centered page number, with left/right rules.
-  // LaTeX uses Huawen Zhongsong; approximate with CJK serif.
   grid(
     columns: (1fr, auto, 1fr),
     align: (left, center, right),
     inset: (top: 0pt),
-    // Left rule
     align(left, rect(width: footline_length, height: 0.4pt, fill: black)),
-    // Page number
     align(center, text(font: _font-cjk, size: zihao.z5)[#context counter(page).display("1")]),
-    // Right rule
     align(right, rect(width: footline_length, height: 0.4pt, fill: black)),
   )
 }
 
 #let _underline_field(body, width: 12em, pad: 2pt) = {
-  // A visual underline field like \underline{\makebox[...]{...}}
-  // We build a box with only a bottom stroke (no borders).
   box(
     width: width,
     inset: (bottom: pad),
-		stroke: (bottom: 0.6pt),
-		outset: (bottom: 3pt),
+    stroke: (bottom: 0.6pt),
+    outset: (bottom: 3pt),
     body,
   )
 }
@@ -100,14 +65,10 @@
   stu_num: "",
   instructor: "",
   report_date: "",
-  // Replace the LaTeX EPS logo with a user-supplied raster/vector.
-  // If not present, we simply omit it.
   logo_path: none,
   line_width: 12em,
 ) = {
-  // Title page with no header/footer.
   set page(header: none, footer: none)
-  // Center everything.
   align(
     center,
     stack(
@@ -175,8 +136,6 @@
 }
 
 #let _set_outline_style(depth: 2) = {
-  // Use Typst's outline; depth matches LaTeX \tableofcontents[level=2].
-  // Title is customized to "目 录" with spacing and dotted leaders.
   show outline: set par(first-line-indent: 0pt)
   
   set outline(indent: auto)
@@ -248,13 +207,11 @@
   toc_depth: 2,
 ) = {
   show: show-cn-fakebold.with(stroke: 0.04em)
-
-	if logo_path == none {
-
-		logo_path = "./HUSTBlack.png"
-	}
   
-  // Cover.
+  if logo_path == none {
+    logo_path = "./HUSTBlack.png"
+  }
+  
   _cover(
     title: title,
     course_name: course_name,
@@ -267,9 +224,6 @@
     logo_path: logo_path,
   )
   
-  // Main header/footer for the rest of the document.
-  
-  // Front matter: Roman numbering + TOC.
   set page(
     numbering: "I",
     header: _hust_header(),
@@ -280,7 +234,6 @@
   _set_outline_style(depth: toc_depth)
   pagebreak()
   
-  // Main matter: Arabic numbering.
   set page(
     numbering: "1",
     header: _hust_header(),
@@ -297,25 +250,20 @@
   show heading: set par(first-line-indent: 0pt)
   
   show heading.where(level: 1): it => {
-    // Add a page break before each section like \sectionbreak could be used.
-    // Note: LaTeX defines \sectionbreak but doesn't enforce it; we won't force it.
     align(center, text(font: _font-cjk-sans, size: zihao.zm2, weight: "bold")[#counter(heading).display() #it.body])
     v(0.5em)
   }
   
-  // Subsection: left, bold.
   show heading.where(level: 2): it => {
     v(0.5em)
     text(font: _font-cjk-sans, size: zihao.z4, weight: "bold")[#counter(heading).display() #it.body]
     v(0.3em)
   }
   
-  // Subsubsection: left, bold, smaller.
   show heading.where(level: 3): it => {
     text(font: _font-cjk-sans, size: zihao.zm4, weight: "bold")[#counter(heading).display() #it.body]
   }
   
-  // Place table captions on top
   show figure.where(kind: table): set figure(gap: 0.5em)
   show figure.where(kind: table): it => {
     v(0.5em)
@@ -383,18 +331,15 @@
 }
 
 #let citation(bib_path) = {
-  // Create a level 1 heading without numbering
   show heading.where(level: 1): it => {
     align(center, text(font: _font-cjk-sans, size: zihao.zm2, weight: "bold")[#it.body])
   }
   heading(level: 1, numbering: none)[参考文献]
   
-  // Display the bibliography
   bibliography(bib_path, title: none, full: true)
 }
 
 #let appendix_section(body) = {
-  
   set heading(numbering: "A")
   counter(heading).update(0)
   show heading.where(level: 1): it => {

@@ -1,4 +1,4 @@
-#import "@preview/hustcs-report-typst:0.1.0": *
+#import "@preview/modern-hust-cs-report:0.1.0": *
 
 
 #show: experimental_report.with(
