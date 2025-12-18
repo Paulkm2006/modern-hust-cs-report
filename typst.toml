@@ -2,7 +2,7 @@
 name = "modern-hust-cs-report"
 version = "0.1.0"
 entrypoint = "template.typ"
-authors = ["Paul Liu <paulkm at hust.edu.cn>"]
+authors = ["Paul Liu <https://github.com/Paulkm2006>"]
 license = "GPL-3.0-or-later"
 categories = ["report"]
 repository = "https://github.com/Paulkm2006/modern-hust-cs-report"
