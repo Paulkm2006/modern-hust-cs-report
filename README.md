@@ -41,6 +41,7 @@ typst init @preview/modern-hust-cs-report my-report
   stu-num: "U2024",
   instructor: "张三",
   report-date: "2025年11月4日",
+  report-type: "experiment" // 可选 experiment course 或不填
 )
 
 = 引言
@@ -95,11 +96,10 @@ Here is the appendix content.
 使用 `fig` 函数插入图片，它会自动添加格式化的图注：
 
 ```typst
-#fig("path/to/image.png", caption: "图片描述", width: 80%)
+#fig(image("path/to/image.png"), caption: "图片描述")
 ```
 
 - `caption`: 图片标题（必填）
-- `width`: 图片宽度，可以是百分比或绝对值（可选，默认 auto）
 - 图片编号格式为 `图x-y-z`，其中 x 是一级标题编号，y 是二级标题编号，z 是该节内的图片序号
 - 每个二级标题下的图片编号会自动重置
 - 图注使用 Times New Roman 和黑体混合字体，14pt，居中显示在图片下方
