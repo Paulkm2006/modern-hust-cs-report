@@ -67,6 +67,7 @@
   report-date: "",
   logo-path: none,
   line_width: 12em,
+  type: "experiment",
 ) = {
   set page(header: none, footer: none)
   align(
@@ -76,14 +77,20 @@
       v(5em),
       (if logo-path != none { image(logo-path, height: 1.61cm) } else { none }),
       v(3em),
-      text(font: _font-cjk, size: 40pt, spacing: 0.1em)[*课 程 设 计 报 告*],
-      v(8em),
-      stack(
-        dir: ltr,
-        spacing: 0.5em,
-        text(font: _font-cjk-sans, size: zihao.z2, weight: "bold")[题目：],
-        _underline_field(text(font: _font-cjk, size: zihao.z2, weight: "bold")[#title], width: 26em),
-      ),
+      if type == "experiment" {
+        text(font: _font-cjk, size: 40pt, spacing: 0.1em)[*实 验 报 告*]
+      } else if type == "course" {
+        text(font: _font-cjk, size: 40pt, spacing: 0.1em)[*课 程 设 计 报 告*]
+        v(8em)
+        stack(
+          dir: ltr,
+          spacing: 0.5em,
+          text(font: _font-cjk-sans, size: zihao.z2, weight: "bold")[题目：],
+          _underline_field(text(font: _font-cjk, size: zihao.z2, weight: "bold")[#title], width: 26em),
+        )
+      } else {
+        none
+      },
       v(8em),
       {
         set text(font: _font-cjk, size: 18pt, weight: "bold")
@@ -202,6 +209,7 @@
   stu-num: "",
   instructor: "",
   report-date: "",
+  report-type: "experiment",
   logo-path: none,
   footline-length: 6.7cm,
   toc-depth: 2,
@@ -222,6 +230,7 @@
     instructor: instructor,
     report-date: report-date,
     logo-path: logo-path,
+    type: report-type,
   )
   
   set page(
@@ -307,7 +316,7 @@
 }
 
 // from: https://github.com/DzmingLi/hust-cse-report/blob/main/template.typ , thanks!
-#let fig(image-path, caption: "", width: auto) = {
+#let fig(image-path, caption: "") = {
   figure(
     image(image-path, width: width),
     caption: text(font: ("Times New Roman", "SimHei"), size: 12pt)[#caption],

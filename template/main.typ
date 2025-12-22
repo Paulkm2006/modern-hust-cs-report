@@ -1,4 +1,4 @@
-#import "@preview/modern-hust-cs-report:0.1.0": *
+#import "../template.typ": *
 
 
 #show: experimental-report.with(
@@ -10,6 +10,7 @@
   stu-num: "U2024",
   instructor: "张三",
   report-date: "2025年11月4日",
+  report-type: "experiment", // "experiment" 或 "course"
 )
 
 = 引言
@@ -43,7 +44,7 @@
 )
 
 // 插入图片
-// #fig("./HUSTBlack.png", caption: "示例图片")
+// #fig(image("../HUSTBlack.png"), caption: "示例图片")
 
 #pagebreak()
 
